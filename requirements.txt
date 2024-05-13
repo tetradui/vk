@@ -1,0 +1,8 @@
+django~=5.0.6
+djangorestframework
+djangorestframework-simpleJWT
+psycopg2-binary
+python-decouple
+Pillow
+django-filter
+drf-yasg
