@@ -35,7 +35,7 @@ class ActivationView(APIView):
         user.is_active = True
         user.save()
         return Response("Вы успешно активировали аккаунт", 200)
-    
+
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -46,7 +46,7 @@ class UserProfileView(APIView):
         # Сериализуем данные пользователя
         serializer = UserProfileSerializer(user)
         return Response(serializer.data)
-    
+
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
