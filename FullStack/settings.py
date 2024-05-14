@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'psycopg2',
 
     #apps
+    'posts',
 
 
 ]
