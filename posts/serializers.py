@@ -7,6 +7,9 @@ class PostSerializers(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        validated_data['author'] = self.context['request'].user
+        post = super().create(validated_data)
+        post.save()
         # Получаем пользователя, совершившего запрос
         user = self.context['request'].user
         # Создаем пост и автоматически устанавливаем его автора

@@ -48,14 +48,14 @@ INSTALLED_APPS = [
     'psycopg2',
     'corsheader',
 
-   
+
 
     #apps
     'posts',
     'account',
     'chat',
     'review',
-    
+
 
 
 ]
