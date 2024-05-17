@@ -16,6 +16,7 @@ User = get_user_model()
 
 @swagger_auto_schema()
 class RegisterView(APIView):
+    @swagger_auto_schema(request_body=RegisterSerializer())
     def post(self, request):
         data = request.data
         serializer = RegisterSerializer(data=data)
