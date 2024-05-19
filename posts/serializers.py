@@ -14,8 +14,13 @@ class PostSerializers(serializers.ModelSerializer):
         post.save()
         return post
 
+    def update(self, validated_data):
+        validated_data['author'] = self.context['request'].user
+        post = super().update(validated_data)
+    
 
 class PostListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('image', 'author', 'title')
+
