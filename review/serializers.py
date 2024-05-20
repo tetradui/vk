@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import Comment
+from .models import Comment, Favorite
 
 class CommentSerializer(ModelSerializer): 
     class Meta:
@@ -13,6 +13,12 @@ class CommentSerializer(ModelSerializer):
         attrs['user'] = request.user
         return attrs
 
+
+class FavoriteSerializer(ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ['user', 'post']
+        read_only_fields = ['user']
 
 
 # from rest_framework.serializers import ModelSerializer

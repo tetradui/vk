@@ -15,3 +15,7 @@ class Comment(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)    
     updated_at = models.DateTimeField(auto_now=True)
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, related_name='favorite', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='favorite', on_delete=models.CASCADE)

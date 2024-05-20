@@ -7,8 +7,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 from posts.models import Post
-from .models import Like, Comment
-from .serializers import CommentSerializer
+from .models import Like, Comment, Favorite
+from .serializers import CommentSerializer, FavoriteSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -37,3 +37,33 @@ class CommentViewSet(ModelViewSet):
         elif self.action in ['update', 'partial_update', 'destroy']:
             self.permission_classes = [IsOwnerOrReadOnly]
         return [permission() for permission in self.permission_classes]
+    
+class FavoritesViewSet(ModelViewSet):
+    serializer_class = FavoriteSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        # Фильтруем queryset по текущему пользователю
+        return Favorite.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        # Автоматически устанавливаем текущего пользователя как владельца
+        serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        post_id = request.data.get('post')
+        
+        # Проверяем, существует ли пост
+        post = get_object_or_404(Post, id=post_id)
+        
+        # Проверяем, есть ли уже пост в избранных у пользователя
+        if Favorite.objects.filter(user=user, post=post).exists():
+            return Response({'detail': 'Этот пост уже в вашем избранном.'}, status=401)
+        
+        # Создаем объект избранного с текущим пользователем
+        favorite = Favorite(user=user, post=post)
+        favorite.save()
+        
+        serializer = self.get_serializer(favorite)
+        return Response(serializer.data, status=201)
