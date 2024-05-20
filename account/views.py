@@ -4,8 +4,9 @@ from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import RegisterSerializer, UserSerializer, UserProfileSerializer
 
 
 User = get_user_model()
@@ -36,6 +37,24 @@ class ActivationView(APIView):
         return Response("Вы успешно активировали аккаунт", 200)
     
 
+# class ProfileDetail(generics.RetrieveAPIView):
+#     queryset = Profile.objects.all()
+#     serializer_class = ProfileSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def get_object(self):
+#         return self.request.user.profile
+    
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Получаем данные авторизованного пользователя
+        user = request.user
+        # Сериализуем данные пользователя
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data)
+    
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

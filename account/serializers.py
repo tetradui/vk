@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 from .utils import send_activation_code
 
+
 User = get_user_model()
 
 
@@ -30,3 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'is_active']  # указываем нужные поля
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
