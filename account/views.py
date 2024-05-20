@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import generics
 
-
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, UserSerializer
 
 
 User = get_user_model()
@@ -34,3 +34,8 @@ class ActivationView(APIView):
         user.is_active = True
         user.save()
         return Response("Вы успешно активировали аккаунт", 200)
+    
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

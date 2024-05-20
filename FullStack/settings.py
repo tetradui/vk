@@ -48,7 +48,8 @@ INSTALLED_APPS = [
 
     #apps
     'posts',
-    'account'
+    'account',
+    'review',
 
 
 ]
