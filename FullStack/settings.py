@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'psycopg2',
+    'corsheader',
+    'psycopg2',
+
+   
 
     #apps
     'posts',
