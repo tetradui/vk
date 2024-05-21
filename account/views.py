@@ -37,14 +37,6 @@ class ActivationView(APIView):
         return Response("Вы успешно активировали аккаунт", 200)
     
 
-# class ProfileDetail(generics.RetrieveAPIView):
-#     queryset = Profile.objects.all()
-#     serializer_class = ProfileSerializer
-#     permission_classes = [IsAuthenticated]
-
-#     def get_object(self):
-#         return self.request.user.profile
-    
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -58,3 +50,10 @@ class UserProfileView(APIView):
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
