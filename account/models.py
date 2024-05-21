@@ -36,6 +36,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     birth_date = models.DateField(blank=True, null=True)
+    pro_photo = models.ImageField(blank=True)
     phone = models.CharField(max_length=50, blank=True)
     bio = models.TextField(blank=True)
     activation_code = models.CharField(max_length=10, blank=True)
