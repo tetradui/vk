@@ -46,11 +46,15 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'psycopg2',
+    'corsheader',
+
    
 
     #apps
     'posts',
     'account',
+    'chat',
+    'review',
     
 
 
@@ -59,8 +63,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -163,3 +168,8 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+
+CORS_ORIGIN_WHITELIST=[
+    'http://localhost:8000'
+]
