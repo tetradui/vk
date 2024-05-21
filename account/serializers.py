@@ -54,6 +54,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         profile_data = validated_data.pop('profile', {})
         profile = instance.profile
 
+        validated_data.pop('email', None)
+
         # Update user fields
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
