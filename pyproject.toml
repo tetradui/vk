@@ -15,8 +15,10 @@ python-decouple = "^3.8"
 pillow = "^10.3.0"
 django-filter = "^24.2"
 drf-yasg = "^1.21.7"
-setuptools = "^69.5.1"
+redis = "^5.0.4"
 celery = "^5.4.0"
+setuptools = "^69.5.1"
+
 
 
 [build-system]

@@ -6,3 +6,5 @@ python-decouple
 Pillow
 django-filter
 drf-yasg
+redis
+celery

@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
+
 from .models import Post
 from .serializers import PostSerializers, PostListSerializers
 from .permissions import IsOwnerOrReadOnly
@@ -31,6 +32,7 @@ class PostViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'request': self.request}
+   
 
 
 
