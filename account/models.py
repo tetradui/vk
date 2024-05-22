@@ -4,7 +4,6 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.utils.crypto import get_random_string
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.decorators import login_required
 
 
 class UserManager(BaseUserManager):
@@ -58,17 +57,9 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Добавьте поля профиля
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=100, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-
-# @login_required
-# def dashboard(request):
-#     if request.method == 'POST':
-#         user_form = UserEditForm(instance=request.user, data=request.POST)
-#         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):

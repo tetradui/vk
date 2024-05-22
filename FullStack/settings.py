@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config,RepositoryEnv
-import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,16 +45,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'psycopg2',
-    'corsheaders',
-
-   
 
     #apps
     'posts',
     'account',
-    'chat',
     'review',
-
 
 
 ]
@@ -142,6 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -157,7 +152,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
-
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -167,11 +161,16 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+CELERY_BROKER_URL='redis://localhost:6379'
+CELERY_RESULT_BACKEND='redis://localhost:6379'
 
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
-
-
-CORS_ORIGIN_WHITELIST=[
-    'http://localhost:8000'
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+    'http://localhost:3001',
+    '127.0.0.1:8000'
+]
+CORS_ALLOWED_METHOD = [
+    '*'
 ]
